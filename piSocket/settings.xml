@@ -1,0 +1,10 @@
+<config>
+	<signalr_url>www.flashgrow.com</signalr_url>
+	<signalr_url_endpoint>hubs</signalr_url_endpoint>
+	<!--<signalr_url_endpoint>signalr</signalr_url_endpoint>-->
+	<signalr_port>8080</signalr_port>
+	<timeout>240</timeout>
+	<api_endpoint_url>http://dev.flashgrow.com/api/io/</api_endpoint_url>
+	<pipe_to_main>/tmp/mainfifo</pipe_to_main>
+	<pipe_from_socket>/tmp/fromsocketfifo</pipe_from_socket>
+</config>

@@ -1,0 +1,105 @@
+﻿Build started 8/16/2014 2:57:17 PM.
+     1>Project "C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.vcxproj" on node 2 (Build target(s)).
+     1>Build:
+         "P:\Program Files (x86)\Sysprogs\VisualGDB\\VisualGDB.exe" /build "C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.vcxproj" "/solution:C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket.sln" "/config:Release" "/platform:Win32"
+         VisualGDB: Attempting inline build...
+         VisualGDB: Sending 17 updated source files to build machine...
+         VisualGDB: Executing prebuild actions
+         VisualGDB: Run "make CONFIG=Release" in directory "/tmp/VisualGDB/c/Users/VirtualLife/Desktop/FlashGrow/pisocket/piSocket" on pi@192.168.1.100 (SSH)
+         mkdir Release
+         g++ -ggdb -ffunction-sections -O3   -DNDEBUG -DRELEASE  -c piSocket.cpp -o Release/piSocket.o -MD -MF Release/piSocket.dep
+         g++ -o Release/piSocket -Wl,-gc-sections    -Wl,--start-group Release/piSocket.o   -Wl,--rpath='$ORIGIN'   -Wl,--end-group
+         Release/piSocket.o: In function `Poco::AutoPtr<Poco::Util::XMLConfiguration>::operator->()':
+     1>C:\Users\VirtualLife\AppData\Local\VisualGDB\RemoteSourceCache\192.168.1.100\0003\include\Poco\AutoPtr.h(210): error VGDB1000: undefined reference to `Poco::NullPointerException::NullPointerException(int)'
+     1>C:\Users\VirtualLife\AppData\Local\VisualGDB\RemoteSourceCache\192.168.1.100\0003\include\Poco\AutoPtr.h(210): error VGDB1000: undefined reference to `typeinfo for Poco::NullPointerException'
+     1>C:\Users\VirtualLife\AppData\Local\VisualGDB\RemoteSourceCache\192.168.1.100\0003\include\Poco\AutoPtr.h(210): error VGDB1000: undefined reference to `Poco::NullPointerException::~NullPointerException()'
+         Release/piSocket.o: In function `std::basic_string<char, std::char_traits<char>, std::allocator<char> >& Poco::replaceInPlace<std::basic_string<char, std::char_traits<char>, std::allocator<char> > >(std::basic_string<char, std::char_traits<char>, std::allocator<char> >&, std::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::basic_string<char, std::char_traits<char>, std::allocator<char> >::size_type)':
+     1>C:\Users\VirtualLife\AppData\Local\VisualGDB\RemoteSourceCache\192.168.1.100\0003\include\Poco\String.h(436): error VGDB1000: undefined reference to `Poco::Bugcheck::assertion(char const*, char const*, int)'
+         Release/piSocket.o: In function `main':
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(73): error VGDB1000: undefined reference to `Poco::Util::XMLConfiguration::XMLConfiguration(std::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(84): error VGDB1000: undefined reference to `Poco::Util::AbstractConfiguration::getString(std::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(85): error VGDB1000: undefined reference to `Poco::Util::AbstractConfiguration::getString(std::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(86): error VGDB1000: undefined reference to `Poco::Util::AbstractConfiguration::getInt(std::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(87): error VGDB1000: undefined reference to `Poco::Util::AbstractConfiguration::getInt(std::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(88): error VGDB1000: undefined reference to `Poco::Util::AbstractConfiguration::getString(std::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(89): error VGDB1000: undefined reference to `Poco::Util::AbstractConfiguration::getString(std::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(119): error VGDB1000: undefined reference to `Poco::URI::URI(std::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(120): error VGDB1000: undefined reference to `Poco::URI::getPort() const'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(120): error VGDB1000: undefined reference to `Poco::Net::HTTPClientSession::HTTPClientSession(std::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, unsigned short)'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(123): error VGDB1000: undefined reference to `Poco::Timespan::Timespan(long long)'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(123): error VGDB1000: undefined reference to `Poco::Net::HTTPSession::setTimeout(Poco::Timespan const&)'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(123): error VGDB1000: undefined reference to `Poco::Timespan::~Timespan()'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(124): error VGDB1000: undefined reference to `Poco::URI::getPathAndQuery() const'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(127): error VGDB1000: undefined reference to `Poco::Net::HTTPRequest::HTTPRequest(std::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(128): error VGDB1000: undefined reference to `Poco::Net::HTTPClientSession::sendRequest(Poco::Net::HTTPRequest&)'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(130): error VGDB1000: undefined reference to `Poco::Net::SocketAddress::toString() const'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(130): error VGDB1000: undefined reference to `Poco::StringTokenizer::StringTokenizer(std::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int)'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(130): error VGDB1000: undefined reference to `Poco::Net::SocketAddress::~SocketAddress()'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(134): error VGDB1000: undefined reference to `Poco::Net::HTTPResponse::HTTPResponse()'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(135): error VGDB1000: undefined reference to `Poco::Net::HTTPClientSession::receiveResponse(Poco::Net::HTTPResponse&)'
+         Release/piSocket.o: In function `~GenericReader':
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\rapidjson\internal\strfunc.h(15): error VGDB1000: undefined reference to `Poco::Net::HTTPMessage::HTTP_1_1'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\rapidjson\internal\strfunc.h(15): error VGDB1000: undefined reference to `Poco::Net::HTTPRequest::HTTP_GET'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\rapidjson\internal\strfunc.h(15): error VGDB1000: undefined reference to `typeinfo for Poco::RangeException'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\rapidjson\internal\strfunc.h(15): error VGDB1000: undefined reference to `Poco::RangeException::~RangeException()'
+         Release/piSocket.o: In function `main':
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(151): error VGDB1000: undefined reference to `Poco::Net::HTTPClientSession::HTTPClientSession(std::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, unsigned short)'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(153): error VGDB1000: undefined reference to `Poco::Net::HTTPRequest::HTTPRequest(std::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(154): error VGDB1000: undefined reference to `Poco::Net::NameValueCollection::set(std::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(155): error VGDB1000: undefined reference to `Poco::Net::HTTPResponse::HTTPResponse()'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(157): error VGDB1000: undefined reference to `Poco::Net::WebSocket::WebSocket(Poco::Net::HTTPClientSession&, Poco::Net::HTTPRequest&, Poco::Net::HTTPResponse&)'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(162): error VGDB1000: undefined reference to `Poco::Net::WebSocket::sendFrame(void const*, int, int)'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(167): error VGDB1000: undefined reference to `Poco::Net::WebSocket::receiveFrame(void*, int, int&)'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(186): error VGDB1000: undefined reference to `Poco::Net::WebSocket::receiveFrame(void*, int, int&)'
+         Release/piSocket.o: In function `message_action':
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(252): error VGDB1000: undefined reference to `curl_global_init'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(253): error VGDB1000: undefined reference to `curl_easy_init'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(254): error VGDB1000: undefined reference to `curl_easy_setopt'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(255): error VGDB1000: undefined reference to `curl_easy_setopt'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(256): error VGDB1000: undefined reference to `curl_easy_setopt'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(257): error VGDB1000: undefined reference to `curl_easy_setopt'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(258): error VGDB1000: undefined reference to `curl_easy_setopt'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(259): error VGDB1000: undefined reference to `curl_easy_perform'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(261): error VGDB1000: undefined reference to `curl_easy_cleanup'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(262): error VGDB1000: undefined reference to `curl_global_cleanup'
+         Release/piSocket.o: In function `main':
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(212): error VGDB1000: undefined reference to `Poco::Net::WebSocket::shutdown()'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(212): error VGDB1000: undefined reference to `Poco::Net::HTTPResponse::~HTTPResponse()'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(212): error VGDB1000: undefined reference to `Poco::Net::HTTPRequest::~HTTPRequest()'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(212): error VGDB1000: undefined reference to `Poco::Net::HTTPClientSession::~HTTPClientSession()'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(212): error VGDB1000: undefined reference to `Poco::Net::HTTPResponse::~HTTPResponse()'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(212): error VGDB1000: undefined reference to `Poco::StringTokenizer::~StringTokenizer()'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(212): error VGDB1000: undefined reference to `Poco::Net::HTTPRequest::~HTTPRequest()'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(212): error VGDB1000: undefined reference to `Poco::Net::HTTPClientSession::~HTTPClientSession()'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(212): error VGDB1000: undefined reference to `Poco::URI::~URI()'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(212): error VGDB1000: undefined reference to `Poco::Net::HTTPResponse::~HTTPResponse()'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(212): error VGDB1000: undefined reference to `Poco::StringTokenizer::~StringTokenizer()'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(212): error VGDB1000: undefined reference to `Poco::Net::HTTPRequest::~HTTPRequest()'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(212): error VGDB1000: undefined reference to `Poco::Net::HTTPClientSession::~HTTPClientSession()'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(212): error VGDB1000: undefined reference to `Poco::URI::~URI()'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(217): error VGDB1000: undefined reference to `Poco::Exception::displayText() const'
+         Release/piSocket.o: In function `Poco::StringTokenizer::operator[](unsigned int) const':
+     1>C:\Users\VirtualLife\AppData\Local\VisualGDB\RemoteSourceCache\192.168.1.100\0003\include\Poco\StringTokenizer.h(117): error VGDB1000: undefined reference to `Poco::RangeException::RangeException(int)'
+         Release/piSocket.o: In function `main':
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(130): error VGDB1000: undefined reference to `Poco::Net::SocketAddress::~SocketAddress()'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(123): error VGDB1000: undefined reference to `Poco::Timespan::~Timespan()'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(212): error VGDB1000: undefined reference to `Poco::Net::HTTPClientSession::~HTTPClientSession()'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(212): error VGDB1000: undefined reference to `Poco::Net::HTTPRequest::~HTTPRequest()'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(212): error VGDB1000: undefined reference to `Poco::Net::HTTPResponse::~HTTPResponse()'
+     1>C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.cpp(186): error VGDB1000: undefined reference to `Poco::Net::WebSocket::receiveFrame(void*, int, int&)'
+         Release/piSocket.o:(.ARM.extab.text.startup.main+0x280): undefined reference to `typeinfo for Poco::Net::ConnectionResetException'
+         Release/piSocket.o:(.ARM.extab.text.startup.main+0x284): undefined reference to `typeinfo for Poco::TimeoutException'
+         Release/piSocket.o:(.ARM.extab.text.startup.main+0x288): undefined reference to `typeinfo for Poco::Net::WebSocketException'
+         collect2: ld returned 1 exit status
+         make: *** [Release/piSocket] Error 1
+         -------------------------------------------------------------
+         Command exited with code 2
+         Executable: make
+         Arguments: CONFIG=Release
+         Directory: /tmp/VisualGDB/c/Users/VirtualLife/Desktop/FlashGrow/pisocket/piSocket
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.MakeFile.Targets(38,5): error MSB3073: The command ""P:\Program Files (x86)\Sysprogs\VisualGDB\\VisualGDB.exe" /build "C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.vcxproj" "/solution:C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket.sln" "/config:Release" "/platform:Win32"" exited with code 1.
+     1>Done Building Project "C:\Users\VirtualLife\Desktop\FlashGrow\pisocket\piSocket\piSocket.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:01:33.55
