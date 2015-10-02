@@ -5,6 +5,7 @@
 	<signalr_port>8080</signalr_port>
 	<timeout>240</timeout>
 	<api_endpoint_url>http://dev.flashgrow.com/api/io/</api_endpoint_url>
+	
 	<pipe_to_main>/tmp/mainfifo</pipe_to_main>
 	<pipe_from_socket>/tmp/fromsocketfifo</pipe_from_socket>
 </config>
