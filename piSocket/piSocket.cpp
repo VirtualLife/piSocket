@@ -70,17 +70,18 @@ void message_action(string rest_url, string message);
 void SendMessageToMain(const void *message);
 string urlencode(const string &s);
 static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *userp);
-void MessageReceived(vector<string> message);
+void MessageReceivedFromMain(string MessageReceived);
 char *getMACC();
+string curl_get(const std::string& url, std::ostream& os, long timeout = 30);
 
-string GetRestCall(string rest_url);
+string GetRestCall(string rest_url, string data);
 // !function prototypes
 
 
 
 //SITE VARIABLES
 #define MAX_BUF 2048
-string ApiEndpointUrl = "http://dev.flashgrow.com/api/io/";
+string ApiEndpointUrl = "http://dev.Domain.com/api/io/";
 
 const char * PiSocketFifoFile = "/tmp/pisocketfifo";
 void * CreatePiSocketFifo(void * argument);  //create the actual file and make socket available
@@ -450,14 +451,8 @@ void * CreatePiSocketFifo(void * argument){
 		if (read(roPipipe, &buf, MAX_BUF) > 0)  // if there is data on the pipe we reed it in buf
 		{
 			printf("FIFO Received: %s\n", buf); // do something with the recieved data -> TODO: parse it and send it over to slaves
-			vector<string> v;
 
-			split(v, buf, "|~|");  //Put,Post,Get |~| FunctionName
-
-			for (int i = 0; i<v.size(); ++i)
-				printf( v[i].c_str());
-
-			MessageReceived(v);
+			MessageReceivedFromMain(buf);
 		}
 		sleep(5);
 	}
@@ -465,21 +460,109 @@ void * CreatePiSocketFifo(void * argument){
 	close(roPipipe);
 }
 
-void MessageReceived(vector<string> message){
-	string verb = message[0];
+void MessageReceivedFromMain(string MessageReceived ){
+	vector<string> message; //will hold all the pieces of a message received from MainPi
 
+	split(message, MessageReceived, "|~|");  //Put,Post,Get |~| FunctionName |~| Data (optional)
+	string verb = message[0];
 	string url = ApiEndpointUrl + message[1];
+	string data = "";
+	/*if (message.size == 2){
+		data = message[2];
+	}*/
 
 	if (verb == "PUT"){
 
 	}
 	if (verb == "GET"){
-		GetRestCall(url);
+		string input = curl_get(url, std::cout);  //call server and get return to pass to MainPi. 
+		SendMessageToMain(input.c_str());
+
+		//GetRestCall(url, data);
 	}
+
+
 
 	
 	
 }
+
+
+/* There might be a realloc() out there that doesn't like reallocing NULL pointers, so we take care of it here */
+void *myrealloc(void *ptr, size_t size)
+{
+	if (ptr)
+		return realloc(ptr, size);
+	else
+		return malloc(size);
+}
+
+/// Handles reception of the data from curl
+/// \param ptr pointer to the incoming data
+/// \param size size of the data member
+/// \param nmemb number of data memebers
+/// \param stream pointer to I/O buffer
+/// \return number of bytes processed
+static size_t write_to_string(void *contents, size_t size, size_t nmemb, void *userp)
+{
+	size_t realsize = size * nmemb;
+	struct MemoryStruct *mem = (struct MemoryStruct *)userp;
+	mem->memory = (char *)myrealloc(mem->memory, mem->size + realsize + 1);
+	//mem->memory = realloc(mem->memory, mem->size + realsize + 1);
+	if (mem->memory == NULL) {
+		/* out of memory! */
+		printf("not enough memory (realloc returned NULL)\n");
+		return 0;
+	}
+
+	memcpy(&(mem->memory[mem->size]), contents, realsize);
+	mem->size += realsize;
+	mem->memory[mem->size] = 0;
+
+	return realsize;
+}
+
+string curl_get(const std::string& url, std::ostream& os, long timeout)
+{
+	curl_global_init(CURL_GLOBAL_ALL);
+
+	CURLcode code(CURLE_FAILED_INIT);
+	CURL* curl = curl_easy_init();
+
+	struct MemoryStruct chunk;  //memory area to return string from web call
+	chunk.memory = NULL; /* we expect realloc(NULL, size) to work */
+	chunk.size = 0;    /* no data at this point */
+
+	if (curl)
+	{
+		if (CURLE_OK == (code = curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, &write_to_string))
+			&& CURLE_OK == (code = curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 1L))
+			&& CURLE_OK == (code = curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L))
+			&& CURLE_OK == (code = curl_easy_setopt(curl, CURLOPT_FILE, &os))
+			//&& CURLE_OK == (code = curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L))
+			&& CURLE_OK == (code = curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&chunk))
+
+			&& CURLE_OK == (code = curl_easy_setopt(curl, CURLOPT_TIMEOUT, timeout))
+			&& CURLE_OK == (code = curl_easy_setopt(curl, CURLOPT_URL, url.c_str())))
+		{
+			code = curl_easy_perform(curl);
+		}
+		curl_easy_cleanup(curl);
+	}
+
+	std::string ReturnMessageFromServer = chunk.memory;
+
+	curl_global_cleanup();
+
+	return ReturnMessageFromServer;
+}
+
+
+
+
+
+
+
 
 string GetRestCallOld(string rest_url){
 	//TestRead();
@@ -519,94 +602,3 @@ string GetRestCallOld(string rest_url){
 
 	return readBuffer;
 }
-
-
-
-/* There might be a realloc() out there that doesn't like reallocing NULL pointers, so we take care of it here */
-void *myrealloc(void *ptr, size_t size)
-{
-	if (ptr)
-		return realloc(ptr, size);
-	else
-		return malloc(size);
-}
-
-
-/// Handles reception of the data
-/// \param ptr pointer to the incoming data
-/// \param size size of the data member
-/// \param nmemb number of data memebers
-/// \param stream pointer to I/O buffer
-/// \return number of bytes processed
-static size_t write_to_string(void *contents, size_t size, size_t nmemb, void *userp)
-{
-	size_t realsize = size * nmemb;
-	struct MemoryStruct *mem = (struct MemoryStruct *)userp;
-	mem->memory = (char *)myrealloc(mem->memory, mem->size + realsize + 1);
-	//mem->memory = realloc(mem->memory, mem->size + realsize + 1);
-	if (mem->memory == NULL) {
-		/* out of memory! */
-		printf("not enough memory (realloc returned NULL)\n");
-		return 0;
-	}
-
-	memcpy(&(mem->memory[mem->size]), contents, realsize);
-	mem->size += realsize;
-	mem->memory[mem->size] = 0;
-
-	return realsize;
-}
-
-
-CURLcode curl_get(const std::string& url, std::ostream& os, long timeout = 30)
-{
-	CURLcode code(CURLE_FAILED_INIT);
-	CURL* curl = curl_easy_init();
-
-
-	struct MemoryStruct chunk;  //memory area to return string from web call
-	chunk.memory = NULL; /* we expect realloc(NULL, size) to work */
-	chunk.size = 0;    /* no data at this point */
-
-	if (curl)
-	{
-		if (CURLE_OK == (code = curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, &write_to_string))
-			&& CURLE_OK == (code = curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 1L))
-			&& CURLE_OK == (code = curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L))
-			&& CURLE_OK == (code = curl_easy_setopt(curl, CURLOPT_FILE, &os))
-			//&& CURLE_OK == (code = curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L))
-			&& CURLE_OK == (code = curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&chunk))
-
-			&& CURLE_OK == (code = curl_easy_setopt(curl, CURLOPT_TIMEOUT, timeout))
-			&& CURLE_OK == (code = curl_easy_setopt(curl, CURLOPT_URL, url.c_str())))
-		{
-			code = curl_easy_perform(curl);
-		}
-		curl_easy_cleanup(curl);
-	}
-
-	std::string a = chunk.memory;
-
-	return code;
-}
-
-
-
-
-
-string GetRestCall(string rest_url){
-	curl_global_init(CURL_GLOBAL_ALL);
-
-	if (CURLE_OK == curl_get("http://dev.flashgrow.com/api/io/1", std::cout))
-	{
-		// Web page successfully written to standard output (console?)
-	}
-
-
-	curl_global_cleanup();
-
-	return "";
-}
-
-
-

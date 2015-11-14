@@ -131,7 +131,7 @@ $(BINARYDIR)/%.o : %.s $(all_make_files) |$(BINARYDIR)
 #VisualGDB: GeneratedRules				#<--- All lines below are auto-generated
 
 FILES = settings.xml
-DEPDIR = /opt/flashgrow/
+DEPDIR = /opt/piSocket
 all:
 	@echo "============="
 	cp $(FILES) $(BINARYDIR)
